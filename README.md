@@ -44,6 +44,8 @@ lip install github.com/LiteLDev/LegacyScriptEngine#quickjs
 
 ### 原生版（C++）
 
+BDS 1.26.20 可直接用预编译版本：[Releases](https://github.com/shanchu514/AntiBang/releases)；其他版本按下文自行编译。
+
 需要 Visual Studio 2022（桌面 C++ 工作负载）与 [xmake](https://xmake.io)：
 
 ```powershell
