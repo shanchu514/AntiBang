@@ -1,0 +1,7 @@
+{
+    "name": "AntiBang",
+    "entry": "AntiBang.dll",
+    "version": "1.0.0",
+    "type": "native",
+    "platform": "win-x64"
+}

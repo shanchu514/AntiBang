@@ -1,0 +1,45 @@
+name: build
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # 26.20.* 对应 BDS 1.26.20.x
+          - ll: "26.20.*"
+            tag: "26.20"
+          # 1.4.* 对应 BDS 1.21.93.x
+          - ll: "1.4.*"
+            tag: "1.4"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: xmake-io/github-action-setup-xmake@v1
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/AppData/Local/.xmake
+          key: xmake-${{ matrix.tag }}-${{ hashFiles('xmake.lua') }}
+          restore-keys: |
+            xmake-${{ matrix.tag }}-
+
+      - name: Update xmake repo
+        run: xmake repo -u
+
+      - name: Configure
+        run: xmake f -a x64 -m release -p windows -v --target_type=server "--ll_version=${{ matrix.ll }}" -y
+
+      - name: Build
+        run: xmake -v -y
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AntiBang-${{ matrix.tag }}-windows-x64
+          path: bin/
+          if-no-files-found: error

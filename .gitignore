@@ -1,0 +1,15 @@
+# 构建产物
+.xmake/
+build/
+bin/
+out/
+
+# 本地环境
+.vs/
+.vscode/
+*.user
+
+# 运行时数据（别提交到仓库）
+plugins/
+bans.json
+history.tsv
